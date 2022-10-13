@@ -25,7 +25,7 @@ for (const namespace of Object.keys(_handlers)) {
       Object.keys(_handlers[namespace as keyof typeof _handlers]).map(
         (name) => [
           name,
-          () => ipcRenderer.invoke(\`\${namespace}:\${name}\`),
+          (...args: any[]) => ipcRenderer.invoke(\`\${namespace}:\${name}\`, ...args),
         ],
       ),
     ),

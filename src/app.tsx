@@ -1,4 +1,4 @@
-/// <reference path="../global.d.ts" />
+///<reference path="../global.d.ts"/>
 
 import { useState } from "react";
 import { MoonIcon } from "@heroicons/react/24/outline";
@@ -12,7 +12,7 @@ function App() {
       <div className="fixed z-10 top-8 right-8">
         <button
           onClick={async () => {
-            await window.darkMode.toggle();
+            console.log(await window.darkMode.toggle());
           }}
           className="transition-[filter] duration-300 hover:drop-shadow-[0_0_1em_theme(colors.slate.600)] dark:hover:[filter:drop-shadow(0_0_1em_theme(colors.amber.100))_drop-shadow(0_0_1em_theme(colors.amber.100))]"
         >

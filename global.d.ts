@@ -1,9 +1,4 @@
-export {};
+///<reference path="node_modules/typescript/lib/lib.dom.d.ts"/>
+///<reference path="electron/handlers.cts"/>
 
-declare global {
-  interface Window {
-    darkMode: {
-      toggle: () => Promise<void>;
-    };
-  }
-}
+interface Window extends Handlers {}

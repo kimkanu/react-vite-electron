@@ -7,10 +7,11 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "npm run --silent build:electron-src && concurrently -n vite,electron,ts \"vite\" \"ENTRY_URL=http://localhost:5173 electron .\" \"onchange -i 'index.cts' 'electron/**/*.cts' -- npm run --silent build:electron-src\"",
+    "dev": "npm run --silent build:electron-src && concurrently -n vite,electron,ts \"vite\" \"ENTRY_URL=http://localhost:5173 onchange -i -k 'index.cts' 'electron/**/*.cts' -e 'electron/preload.cts' -d 4000 -- electron .\" \"onchange -i 'index.cts' 'electron/**/*.cts' -e 'electron/preload.cts' -- npm run --silent build:electron-src\"",
     "build": "rm -rf build/ && vite build && npm run --silent build:electron-src && npm run --silent build:electron",
+    "build:electron-preload": "node scripts/generatePreload.js",
     "build:electron": "electron-builder -mw",
-    "build:electron-src": "tsc index.cts electron/preload.cts --esModuleInterop --module commonjs --outDir build && echo 'Electron sources are built.'",
+    "build:electron-src": "npm run --silent build:electron-preload && tsc index.cts electron/preload.cts --esModuleInterop --module commonjs --outDir build && echo 'Electron sources are built.'",
     "preview": "vite preview"
   },
   "/* build */": {
@@ -71,6 +72,7 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@swc/core": "^1.3.7",
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
     "@vitejs/plugin-react": "^2.1.0",
